@@ -1,0 +1,79 @@
+body {
+	background-color: #272822;
+	color: #e7e8e7;
+	font-size: 20px;
+	font-family: 'Inconsolata', monospace;
+}
+
+#topBar {
+	background: #272822;
+	min-height: 25px;
+}
+#topBar #time {
+	float: right;
+}
+
+#screen {
+	width: 800px;
+	height: 600px;
+	border: solid 1px #e7e8e7;
+	background-image: url("wallpaper.jpg");
+}
+
+#powerButton {
+	text-align: center;
+    height: 60px;
+    width: 100px;
+    margin: -20px -50px;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    font-size: 45px;
+    background-color: #e7e8e7;
+    color: #272822;
+}
+
+#mydiv {
+    position: absolute;
+    z-index: 9;
+    text-align: center;
+    border: none;
+    max-width: 350px;
+}
+
+#mydivcontent > p {
+	color: #272822;
+	margin: 0;
+	padding-top: 1em;
+	padding-bottom: 1em;
+}
+
+#mydivheader {
+    padding: 10px;
+    text-align: left;
+    /*cursor: move;*/
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+    background-color: rgba(39,40,34,0.8);
+    color: #fff;
+}
+#mydivcontent {
+	background: #e7e8e7;
+}
+
+.close {
+	float: right;
+    height: 44px;
+    margin-top: -11px;
+    margin-right: -11px;
+    font-size: 20px;
+    background-color: rgba(39,40,34,0.0);
+    color: #e7e8e7;
+    cursor: pointer;
+    border: none;
+}
+.close:hover {
+    background-color: rgba(255,0,0,0.8);
+
+}
