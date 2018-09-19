@@ -1,5 +1,3 @@
-
-
 //Make the DIV element draggagle:
 	dragElement(document.getElementById("mydiv"));
 
@@ -49,6 +47,54 @@
 	  }
 	}
 
+	dragElement2(document.getElementById("term"));
+
+	function dragElement2(elmnt) {
+	  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+	  if (document.getElementById(elmnt.id + "header")) {
+	    /* if present, the header is where you move the DIV from:*/
+	    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+	  } else {
+	    /* otherwise, move the DIV from anywhere inside the DIV:*/
+	    elmnt.onmousedown = dragMouseDown;
+	  }
+
+	  function dragMouseDown(e) {
+	    e = e || window.event;
+	    e.preventDefault();
+	    // get the mouse cursor position at startup:
+	    pos3 = e.clientX;
+	    pos4 = e.clientY;
+	    document.onmouseup = closeDragElement2;
+	    // call a function whenever the cursor moves:
+	    document.onmousemove = elementDrag;
+	  }
+
+	  function elementDrag(e) {
+	    e = e || window.event;
+	    e.preventDefault();
+	    // calculate the new cursor position:
+	    pos1 = pos3 - e.clientX;
+	    pos2 = pos4 - e.clientY;
+	    pos3 = e.clientX;
+	    pos4 = e.clientY;
+	    // set the element's new position:
+	    if ((elmnt.offsetTop - pos2) < 433 && (elmnt.offsetTop - pos2) > 8) {
+	  	  elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+		}
+		if ((elmnt.offsetLeft - pos1) < 460 && (elmnt.offsetLeft - pos1) > 8)
+	    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+
+	    console.log("Position 1:" + pos1 + " Position 2: " + pos2 + " Position 3:" + pos3 + " Position 4:" + pos4);
+	  }
+
+	  function closeDragElement2() {
+	    /* stop moving when mouse button is released:*/
+	    document.onmouseup = null;
+	    document.onmousemove = null;
+	  }
+	}
+
 
 function getTime() {
 	var today = new Date();
@@ -68,6 +114,57 @@ function time() {
 }
 
 time();
+
+var open = true;
+var term = false;
+var safee = true;
+var hamm = false;
+function welcome() {
+	if (open == true) {
+		document.getElementById("mydiv").style.display = "none";
+		open = false;
+
+	} else {
+		document.getElementById("mydiv").style.display = "block";
+		open = true;
+	}
+
+}
+function ham() {
+	if (hamm == true) {
+		document.getElementById("drop-down").style.display = "none";
+		hamm = false;
+
+	} else {
+		document.getElementById("drop-down").style.display = "block";
+		hamm = true;
+	}
+
+}
+function terminal() {
+	if (term == true) {
+		document.getElementById("term").style.display = "none";
+		term = false;
+
+	} else {
+		document.getElementById("term").style.display = "block";
+		term = true;
+	}
+}
+
+function safe() {
+	if (safee == true) {
+	document.getElementById("topBar").style.background = "#00A635";  
+		safee = false;
+
+	} else {
+	document.getElementById("topBar").style.background = "#272822";
+		safee = true;
+	}
+}
+function shutdown () {
+	document.getElementById("screen").style.display = "none";
+}
 /*
 
 

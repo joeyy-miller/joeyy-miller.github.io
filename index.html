@@ -7,17 +7,35 @@
 
 		<!-- CSS -->
 		<link href="sys/styles/look.css" rel="stylesheet">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
 	</head>
 	<body>
 		<div id="screen">
 			<div id="topBar">
-				Console OS 6
+				<p class="hamburger" onclick="ham();" style="float: left;padding-right: 20px;padding-left: 5px;padding-top: 2px;font-size: 30px;background-color: #272822;border-radius: 0px 0px 9px 0px;"><i class="fas fa-bars"></i></p>
+				<p style="float: left;">Console OS 6</p>
 				<a id="time"></a>
 			</div>
+			<div id="drop-down" style="display: none;">
+				<ul>
+					<li onclick="welcome();">About System</li>
+					<li onclick="terminal();">Terminal</li>
+					<li onclick="safe();">Safe Mode (Debug)</li>
+					<li onclick="shutdown();">Shutdown</li>
+					<li class="last">console6 alpha</li>
+				</ul>
+			</div>
 
-				<div id="mydiv">
-				  <div id="mydivheader"><i>i</i>JD Console 6 OS demo<button class="close">X</button></div>
+			<div id="term" style="top:100px;left:250px;display: none;width: 500px;">
+				  <div id="termheader">Terminal<button onclick="terminal();" class="close">X</button></div>
+				  <div id="termcontent">
+				 	 <p>Terminal underdevelopment, not yet functional.</p>
+				  </div>
+				</div>
+
+				<div id="mydiv" style="top:250px;left:250px;">
+				  <div id="mydivheader"><i>i</i>JD Console 6 OS demo<button onclick="welcome();" class="close">X</button></div>
 				  <div id="mydivcontent">
 				 	 <p>This is demo software. Use at own risk to system. Always make backups of important files.</p>
 				  </div>
