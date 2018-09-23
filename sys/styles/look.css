@@ -17,23 +17,21 @@ body {
 #topBar > p {
     margin: 0;
 }
-.hamburger {
+#hamburger {
     -moz-transition: all .1s ease-in;
     -o-transition: all .1s ease-in;
     -webkit-transition: all .1s ease-in;
     transition: all .1s ease-in;
     cursor: pointer;
 }
-.hamburger:hover {
+#hamburger:hover {
     color: #00c0fd;
-    -moz-transition: all .1s ease-in;
-    -o-transition: all .1s ease-in;
-    -webkit-transition: all .1s ease-in;
-    transition: all .1s ease-in;
+
 }
 #drop-down > ul {
     width: 215px;
     cursor: pointer;
+    padding-top: 10px;
     background: #272822;
     margin: 0;
     list-style: none;
@@ -87,6 +85,18 @@ body {
     text-align: center;
     border: none;
     max-width: 350px;
+}
+
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 0.1s, opacity 0.1s linear;
+}
+
+.visible {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 2s linear;
 }
 
 #mydivcontent > p, #termcontent > p {

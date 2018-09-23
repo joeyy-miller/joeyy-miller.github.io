@@ -119,6 +119,7 @@ var open = true;
 var term = false;
 var safee = true;
 var hamm = false;
+var power = true;
 function welcome() {
 	if (open == true) {
 		document.getElementById("mydiv").style.display = "none";
@@ -143,11 +144,11 @@ function ham() {
 }
 function terminal() {
 	if (term == true) {
-		document.getElementById("term").style.display = "none";
+		document.getElementById("term").classList.add("hidden");
 		term = false;
 
 	} else {
-		document.getElementById("term").style.display = "block";
+		document.getElementById("term").classList.remove("hidden");
 		term = true;
 	}
 }
@@ -155,15 +156,27 @@ function terminal() {
 function safe() {
 	if (safee == true) {
 	document.getElementById("topBar").style.background = "#00A635";  
-		safee = false;
+	document.getElementById("hamburger").style.background = "#00A635";  
+	document.getElementById("ctitle").innerHTML = "Console OS 6 [SAFE MODE]";  
+	safee = false;
 
 	} else {
 	document.getElementById("topBar").style.background = "#272822";
+	document.getElementById("hamburger").style.background = "#272822";
+	document.getElementById("ctitle").innerHTML = "Console OS";  
 		safee = true;
 	}
 }
 function shutdown () {
-	document.getElementById("screen").style.display = "none";
+	if (power == true) {
+		document.getElementById("screen").style.display = "none";
+		document.getElementById("pwr-btn").style.display = "block";
+		power=false;
+	} else {
+		document.getElementById("screen").style.display = "block";
+		document.getElementById("pwr-btn").style.display = "none";
+		power=true;
+	}
 }
 /*
 
