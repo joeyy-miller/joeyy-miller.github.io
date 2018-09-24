@@ -1,13 +1,14 @@
 //Make the DIV element draggagle:
+/*
 	dragElement(document.getElementById("mydiv"));
 
 	function dragElement(elmnt) {
 	  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
 	  if (document.getElementById(elmnt.id + "header")) {
-	    /* if present, the header is where you move the DIV from:*/
+	    /* if present, the header is where you move the DIV from:*
 	    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
 	  } else {
-	    /* otherwise, move the DIV from anywhere inside the DIV:*/
+	    /* otherwise, move the DIV from anywhere inside the DIV:*
 	    elmnt.onmousedown = dragMouseDown;
 	  }
 
@@ -41,7 +42,7 @@
 	  }
 
 	  function closeDragElement() {
-	    /* stop moving when mouse button is released:*/
+	    /* stop moving when mouse button is released:*
 	    document.onmouseup = null;
 	    document.onmousemove = null;
 	  }
@@ -52,10 +53,10 @@
 	function dragElement2(elmnt) {
 	  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
 	  if (document.getElementById(elmnt.id + "header")) {
-	    /* if present, the header is where you move the DIV from:*/
+	    /* if present, the header is where you move the DIV from:*
 	    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
 	  } else {
-	    /* otherwise, move the DIV from anywhere inside the DIV:*/
+	    /* otherwise, move the DIV from anywhere inside the DIV:*
 	    elmnt.onmousedown = dragMouseDown;
 	  }
 
@@ -89,7 +90,7 @@
 	  }
 
 	  function closeDragElement2() {
-	    /* stop moving when mouse button is released:*/
+	    /* stop moving when mouse button is released:*
 	    document.onmouseup = null;
 	    document.onmousemove = null;
 	  }
@@ -178,45 +179,192 @@ function shutdown () {
 		power=true;
 	}
 }
-/*
+*/
 
+/* Example Object 
+let obj = (function(){
+    let _prop1 = 'Starman';
+    return {
+        prop2: 1981,
+        get prop1(){
+            return 'Movie:' + _prop1;
+        },
+        set prop1(_val){
+            _prop1 = _val;
+        }
+    }
+})();
 
-
-
-function kernel_task(data1) {
-	switch (data1) {
-		case "power":
-			sys.power();
-			break;
-	}
-	return "ok";
+for(let prop in obj){
+    console.log(prop);
 }
+console.log( obj.prop2 ); //1981
+console.log( obj.prop1 ); //Starman
+obj.prop1 = 'The Big Lebowski';
+console.log( obj.prop1 );
+console.log( obj._prop1);
 
+*/
 
-/* System Class
-	Used to store system settings and statuses
-*
-class System {
-	constructor() {
-		this.pwrSts = false; // Power off 
-		this.version = "5.3.0a";
-		this.versionShort = "5.3[dev]";
-		this.turnOffFlag = true; // This is used by power function to stop the global 'enter' fucntion from turning the system back on
+/**************************
+  Lightening  Kernel 0.1
+**************************/
+let kernel = (function() {
+
+	// Private Variables
+	let _power = false; // System power status. false = off, true = on.
+
+	return {
+
+		// Public Variables
+		version : '0.1x', // kernel version
+
+		// Get functions
+		get power() { /* Turns system on or off */
+			if(_power == false) { // System off, so turn on.
+
+				_power = true;
+				document.getElementById("indicator").style.color = "#9ed62a";
+				display.boot;
+				
+			} else { // System is on, turn off.
+
+				_power = false;
+				document.getElementById("indicator").style.color = "#ce2732";
+				display.clear;
+
+			}
+		},
+
+		get panic() {/* Calls system panic. */
+		},
+
+		// Info funcitons
+		get powerSts() { // Return the status of the power
+			return _power;
+		}
+
+		// Set functions
 	}
+})();
+function power() { kernel.power; } // Binds power
 
-	power() {
-		if (this.pwrSts) {
-			// Power off system
-			this.turnOffFlag = false;
-			this.pwrSts = false;
-		} else {
-			document.getElementById("powerButton").style.display = "none";
-			//setTimeout(function() {document.getElementById("powerButton").setAttribute("onclick",'kernel_task("power")'); sys.turnOffFlag = true;}, 450);
-			//Power On System
-			this.pwrSts = true;
-			this.turnOffFlag = false;
+/*******************
+ iJD Display Driver
+*******************/
+let display = (function() {
+
+	// Private Variables
+	let _background = "", // Path to background.
+		_boot_bg = ""
+
+	return {
+
+		version : '0.1', // Display Driver Version
+
+		get boot() { // What to show while booting up.
+			setTimeout(function() {document.getElementById("screen").style.background = '#fff';},200);
+			setTimeout(function() {document.getElementById("screen").style.backgroundImage = 'url("sys/styles/boot.jpg")';},1000);
+			setTimeout(function() {document.getElementById("screen").style.backgroundImage = 'none';},4800);
+			setTimeout(function() {document.getElementById("screen").style.background = '#fff';},4800);
+			setTimeout(function() {document.getElementById("screen").style.backgroundImage = 'url("sys/styles/wallpaper_blur.jpg")';},5000);
+			setTimeout(function() {document.getElementById("screen").innerHTML = '<div id="login-title">Welcome.</div><input class="welcome-input" type="text" placeholder="Enter username."><input class="welcome-input" type="password" placeholder="Enter password."><button onclick="sys.login;" id="login-button">Login <i class="fas fa-sign-in-alt"></i></button>'},5000);
+		},
+
+		get clear() { // Clears the screen for shutdown
+			document.getElementById("screen").innerHTML = '';
+			document.getElementById("screen").style.backgroundImage = 'none';
+			document.getElementById("screen").style.background = '#000';
+
+		},
+
+		get desktop() { // Show the desktop
+			document.getElementById("screen").innerHTML = '';
+			setTimeout(function() {document.getElementById("screen").style.background = '#fff';},500);
+			setTimeout(function() {document.getElementById("screen").innerHTML = '<div id="top-bar"><a id="info"><i class="fas fa-info"></i></a><span class="mono"> consoleOS 6</span><a id="time"></a></div>'},1200);
+			setTimeout(function() {document.getElementById("screen").style.backgroundImage = 'url("sys/styles/wallpaper.jpg")';time();},1200);
+		},
+
+		date() {
+			var date=new Date().getDay();
+			switch(date)
+			{
+				case 0:
+					date="Sunday";
+					break;
+				case 1:
+					date="Monday";
+					break;
+				case 2:
+					date="Tuesday";
+					break;
+				case 3:
+					date="Wednesday";
+					break;
+				case 4:
+					date="Thursday";
+					break;
+				case 5:
+					date="Friday";
+					break;
+				case 6:
+					date="Saturday";
+					break;
+				default:
+					date= reg_error + "fetching date";
+			}
+			var currentTime = new Date();
+			var month = currentTime.getMonth() + 1;
+			var day = currentTime.getDate();
+			var year = currentTime.getFullYear();
+			consoleWrite("It is "+date+"; "+month + "/" + day + "/" + year+".");
+		},
+
+		get getTime() {
+			var today = new Date();
+		    var h = today.getHours();
+		    var m = today.getMinutes();
+		    var s = today.getSeconds();
+		    if (m < 10) {m = "0" + m};
+		    if (s < 10) {s = "0" + s};
+		    if (h < 1) {h = "12"} // 0 hours or 12 am
+		    if (h > 12) {h-=12;s += " pm"}else{s+=" am"};
+			return h + ":" + m + ":" + s;
 		}
 	}
+})(); 
+
+let sys = (function() {
+	// Private Variables
+
+	return {
+		get login() {
+			display.desktop; // Load in desktop.
+		}
+	}
+	
+})();
+
+function time() {
+    document.getElementById('time').innerHTML = display.getTime;
+    if (kernel.powerSts)
+    	setTimeout(time, 500);
+ 	else 
+		document.getElementById("time").innerHTML = '';
 }
 
-var sys = new System();*/
+
+/* Keydown Event
+   Listener event that runs whenver a key is pressed to check if an action 
+   	needs to be performed.
+*/
+document.onkeydown = function(evt) {
+	evt = evt || window.event;
+	
+	var isEnter = false;
+	if ("key" in evt) { isEnter = (evt.key == "Enter");
+	} else { isEnter = (evt.keyCode == 13); }
+	if (isEnter) {
+		power();
+	}
+}
