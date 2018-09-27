@@ -34,7 +34,31 @@ body {
     margin-top: 3px;
     display: inline-block;
 }
+#info-dropdown {
+    background-color: #272822;
+    margin: 0;
+    width: 200px;
+    border-radius: 4px;
+    list-style: none;
+    padding: 15px;
+    -moz-transition: all .1s ease-in;
+    -o-transition: all .1s ease-in;
+    -webkit-transition: all .1s ease-in;
+    transition: all .1s ease-in;
+}
+#info-dropdown > li {
+    border-bottom: 1px solid #fff;
+    cursor: pointer;
+}
 
+#info-dropdown > li::last-of-type {
+    border-bottom: none;
+}
+
+#info-dropdown > li:hover {
+    color: #272822;
+    background-color: #fff
+}
 /* Welcome Screen */
 #login-title {
     margin-left: 335px;

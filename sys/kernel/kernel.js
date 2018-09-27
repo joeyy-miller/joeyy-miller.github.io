@@ -89,6 +89,7 @@ let kernel = (function() {
 	}
 })();
 function power() { kernel.power; } // Binds power
+var screen = document.getElementById('screen');
 
 /*************************************
     	U s e r   S p a c e
@@ -97,7 +98,7 @@ function power() { kernel.power; } // Binds power
 /***************************
  iJD Console 6 UI Controller
 ****************************/
-let usr_interace = (function() {
+let user_interface = (function() {
 
 	// Private Variables
 	    // Boot time spacing
@@ -108,17 +109,28 @@ let usr_interace = (function() {
 
 		// Desktop time spacing
 		DESKTOP_STAGE1 = 500,
-		DESKTOP_STAGE2 = 1200;
+		DESKTOP_STAGE2 = 1200,
+
+		// Display statuses. True = visible. False = hidden.
+		info_drop = false;
 
 	return {
 
 		version : '0.1', //@ Display Driver Version
 
 		get boot() { // What to show while booting up.
+
+			/* Stage 1 */
 			kernel.pause = { exe: "kernel.backColor = '#fff'", timeout: BOOT_STAGE1};
+
+			/* Stage 2 */
 			setTimeout(function() {kernel.backgroundPicture = 'url("sys/styles/boot.jpg")';},BOOT_STAGE2);
+
+			/* Stage 3 */
 			setTimeout(function() {kernel.backgroundPicture = 'none';},BOOT_STAGE3);
 			setTimeout(function() {kernel.backColor = '#fff';},BOOT_STAGE3);
+
+			/* Stage 4 */
 			setTimeout(function() {kernel.backgroundPicture = 'url("sys/styles/wallpaper_blur.jpg")';},BOOT_STAGE4);
 			setTimeout(function() {kernel.screenHMTL = '<div id="login-title">Welcome.</div><input class="welcome-input" type="text" placeholder="Enter username."><input class="welcome-input" type="password" placeholder="Enter password."><button onclick="sys.login;" id="login-button">Login <i class="fas fa-sign-in-alt"></i></button>';},BOOT_STAGE4);
 		},
@@ -131,46 +143,25 @@ let usr_interace = (function() {
 		},
 
 		get desktop() { //@ Show the desktop
+
+			/* Stage 1 */
 			setTimeout(function() {kernel.backColor = '#fff';},DESKTOP_STAGE1);
 			setTimeout(function() {kernel.screenHTML = '';},DESKTOP_STAGE1);
-			alert("cealred?")
-			setTimeout(function() {kernel.screenHMTL = '<div id="top-bar"><a id="info"><i class="fas fa-info"></i></a><span class="mono"> consoleOS 6</span><a id="time"></a></div>';},DESKTOP_STAGE2);
+
+			/* Stage 2 */
+			setTimeout(function() {kernel.screenHMTL = '<div id="top-bar"><a onclick="user_interface.info" id="info"><i class="fas fa-info"></i></a><span class="mono"> consoleOS 6</span><a id="time"></a></div><ul id="info-dropdown" style="visibility:hidden;"><li>Test</li><li>Test</li></ul>';},DESKTOP_STAGE2);
 			setTimeout(function() {kernel.backgroundPicture = 'url("sys/styles/wallpaper.jpg")';time();},DESKTOP_STAGE2);
 		},
 
-		date() { //@ Logic for getting date information
-			var date=new Date().getDay();
-			switch(date)
-			{
-				case 0:
-					date="Sunday";
-					break;
-				case 1:
-					date="Monday";
-					break;
-				case 2:
-					date="Tuesday";
-					break;
-				case 3:
-					date="Wednesday";
-					break;
-				case 4:
-					date="Thursday";
-					break;
-				case 5:
-					date="Friday";
-					break;
-				case 6:
-					date="Saturday";
-					break;
-				default:
-					date= reg_error + "fetching date";
+		get info() {
+			if (info_drop){
+				info_drop = false;
+				document.getElementById('info-dropdown').style.visibility = "hidden";
 			}
-			var currentTime = new Date();
-			var month = currentTime.getMonth() + 1;
-			var day = currentTime.getDate();
-			var year = currentTime.getFullYear();
-			consoleWrite("It is "+date+"; "+month + "/" + day + "/" + year+".");
+			else {
+				info_drop = true;
+				document.getElementById('info-dropdown').style.visibility = "visible";
+			}
 		},
 
 		get getTime() { //@ Logic for getting time information
@@ -187,21 +178,24 @@ let usr_interace = (function() {
 	}
 })(); 
 
+// screen.insertAdjacentHTML('beforeend', '<div id="two">two</div>');
+
+
 
 let sys = (function() {
 	// Private Variables
 
 	return {
 		get login() {
-			usr_interace.desktop; // Load in desktop.
+			user_interface.desktop; // Load in desktop.
 		},
 
 		get boot() {
-			usr_interace.boot;
+			user_interface.boot;
 		},
 
 		get clear() {
-			usr_interace.clear;
+			user_interface.clear;
 		}
 	}
 	
@@ -218,7 +212,7 @@ let sys = (function() {
 var TIME_DELAY = 500; // 500 ms clock refresh rate
 function time() {
 
-    document.getElementById('time').innerHTML = usr_interace.getTime;
+    document.getElementById('time').innerHTML = user_interface.getTime;
 
     if (kernel.powerSts)
     {
