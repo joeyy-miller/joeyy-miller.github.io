@@ -164,8 +164,8 @@ let user_interface = (function() {
 			}
 		},
 
-		get info(x) {
-			if (x == "close") {
+		get infoClose() {
+			if (info_dropop == true) {
 				info_drop = false;
 				document.getElementById('info-dropdown').style.visibility = "hidden";	
 			}
@@ -260,5 +260,5 @@ document.onkeydown = function(evt) {
 
 */
 $('#screen').click(function(e) {
-	user_interface.info(close);
+	user_interface.infoClose;
 });
