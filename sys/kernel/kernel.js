@@ -164,6 +164,13 @@ let user_interface = (function() {
 			}
 		},
 
+		get info(x) {
+			if (x == "close") {
+				info_drop = false;
+				document.getElementById('info-dropdown').style.visibility = "hidden";	
+			}
+		},
+
 		get getTime() { //@ Logic for getting time information
 			var today = new Date();
 		    var h = today.getHours();
@@ -239,4 +246,19 @@ document.onkeydown = function(evt) {
 	if (isEnter) {
 		power();
 	}
+}
+
+
+/***********************
+
+  X WINDOW SYSTEM
+
+  (c)iJD 2019
+***********************/
+/* Click on Desktop 
+	This listens for a click on the desktop background
+
+*/
+$('#screen').click(function(e) {
+	user_interface.info(close);
 }
