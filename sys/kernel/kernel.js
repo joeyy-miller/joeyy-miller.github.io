@@ -261,4 +261,4 @@ document.onkeydown = function(evt) {
 */
 $('#screen').click(function(e) {
 	user_interface.info(close);
-}
+});
